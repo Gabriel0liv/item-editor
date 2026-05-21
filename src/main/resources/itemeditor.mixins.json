@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.gabri.itemeditor.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "itemeditor.refmap.json",
+  "mixins": [
+    "MobEffectInstanceAccessor",
+    "MobEffectInstanceMixin",
+    "ItemStackPersistenceMixin",
+    "EntityTypeSpawnEggEntityTagMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
