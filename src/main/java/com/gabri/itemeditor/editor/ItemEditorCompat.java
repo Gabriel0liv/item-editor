@@ -118,17 +118,6 @@ public final class ItemEditorCompat {
         return copy;
     }
 
-    public static CompoundTag fullNbt(ItemStack stack) {
-        if (stack == null || stack.isEmpty()) {
-            return new CompoundTag();
-        }
-
-        ItemStack copy = stack.copy();
-        CompoundTag full = new CompoundTag();
-        copy.save(full);
-        return full;
-    }
-
     public static ItemStack fromFullNbt(CompoundTag fullNbt) {
         if (fullNbt == null || fullNbt.isEmpty()) {
             return ItemStack.EMPTY;

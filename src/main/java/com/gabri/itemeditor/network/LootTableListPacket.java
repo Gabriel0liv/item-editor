@@ -1,8 +1,10 @@
 package com.gabri.itemeditor.network;
 
-import com.gabri.itemeditor.client.screen.LootTableSelectionModal;
+import com.gabri.itemeditor.ItemEditorClientHooks;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class LootTableListPacket {
                     parsed.add(key);
                 }
             }
-            LootTableSelectionModal.applyServerLootTables(parsed);
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ItemEditorClientHooks.APPLY_LOOT_TABLES.apply(parsed));
         });
         context.setPacketHandled(true);
     }

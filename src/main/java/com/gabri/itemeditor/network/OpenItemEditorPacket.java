@@ -1,9 +1,11 @@
 package com.gabri.itemeditor.network;
 
-import com.gabri.itemeditor.client.ItemEditorClient;
+import com.gabri.itemeditor.ItemEditorClientHooks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -37,7 +39,8 @@ public class OpenItemEditorPacket {
         if (context == null) {
             return;
         }
-        context.enqueueWork(() -> ItemEditorClient.open(this.fullItemNbt, this.containerId, this.slotIndex));
+        context.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () ->
+                ItemEditorClientHooks.OPEN_EDITOR.open(this.fullItemNbt, this.containerId, this.slotIndex)));
         context.setPacketHandled(true);
     }
 }
